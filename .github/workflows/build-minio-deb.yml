@@ -1,0 +1,49 @@
+name: Build MinIO Debian Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "MinIO release tag (e.g. RELEASE.2025-08-13T08-35-41Z)"
+        required: true
+        default: "RELEASE.2025-08-13T08-35-41Z"
+
+jobs:
+  build:
+    name: Build MinIO .deb
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+
+      - name: Cache Go modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y git build-essential dpkg-dev
+
+      - name: Run build script
+        run: |
+          chmod +x src/build-minio.sh
+          ./src/build-minio.sh "${{ github.event.inputs.tag }}"
+        env:
+          REPO_URL: git@github.com:minio/minio.git
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: minio-deb-package
+          path: dist/*.deb
