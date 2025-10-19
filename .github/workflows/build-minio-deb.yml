@@ -47,3 +47,22 @@ jobs:
         with:
           name: minio-deb-package
           path: dist/*.deb
+
+      - name: Create GitHub release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          release_name: MinIO Debian Package ${{ github.event.inputs.tag }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload .deb to release
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/minio-*.deb
+          asset_name: minio-${{ github.event.inputs.tag }}.deb
+          asset_content_type: application/vnd.debian.binary-package
