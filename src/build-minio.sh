@@ -4,7 +4,7 @@ set -euo pipefail
 # ==============================
 # Configuration
 # ==============================
-REPO_URL="${REPO_URL:-git@github.com:minio/minio.git}"   # Git repository (SSH)
+REPO_URL="${REPO_URL:-https://github.com/minio/minio.git}"   # Git repository (SSH)
 TAG="${1:-${TAG:-RELEASE.2025-08-13T08-35-41Z}}"         # Tag to build
 BUILD_DIR="${BUILD_DIR:-$(pwd)/build}"                   # Build directory
 PKG_NAME="minio"
