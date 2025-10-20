@@ -106,9 +106,9 @@ The project includes a workflow to build the `.deb` automatically:
 
 ## License
 
-### Disclaimer
-
 The script included in this repository is licensed under the [MIT License](LICENSE-MIT).  
+
+## Disclaimer
 
 The MinIO binaries produced by this script are from the original [MinIO project](https://github.com/minio/minio) and are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).  
 All copyright and license information of MinIO are retained from the original project. This repository does not modify MinIO's source code.
