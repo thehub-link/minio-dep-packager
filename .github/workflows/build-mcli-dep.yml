@@ -38,7 +38,7 @@ jobs:
       - name: Run build script
         run: |
           chmod +x src/build-mcli.sh
-          ./src/build-minio.sh "${{ github.event.inputs.tag }}"
+          ./src/build-mcli.sh "${{ github.event.inputs.tag }}"
         env:
           REPO_URL: https://github.com/minio/minio.git
 
