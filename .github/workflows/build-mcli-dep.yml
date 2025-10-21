@@ -40,7 +40,7 @@ jobs:
           chmod +x src/build-mcli.sh
           ./src/build-mcli.sh "${{ github.event.inputs.tag }}"
         env:
-          REPO_URL: https://github.com/minio/mcl.git
+          REPO_URL: https://github.com/minio/mc.git
 
       - name: Create GitHub Release and upload .deb
         uses: softprops/action-gh-release@v2
