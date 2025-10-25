@@ -45,7 +45,8 @@ jobs:
       - name: Create GitHub Release and upload .deb
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.event.inputs.tag }}
+          tag_name: minio-${{ github.event.inputs.tag }}
+          name: minio-${{ github.event.inputs.tag }}
           files: dist/minio-${{ github.event.inputs.tag }}.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
